@@ -1,0 +1,248 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 3.5%;
+    --foreground: 0 0% 96%;
+
+    --card: 0 0% 7%;
+    --card-foreground: 0 0% 96%;
+
+    --popover: 0 0% 8%;
+    --popover-foreground: 0 0% 96%;
+
+    --primary: 210 9% 88%;
+    --primary-foreground: 0 0% 6%;
+
+    --secondary: 0 0% 12%;
+    --secondary-foreground: 0 0% 72%;
+
+    --muted: 0 0% 16%;
+    --muted-foreground: 0 0% 55%;
+
+    --accent: 200 72% 60%;
+    --accent-foreground: 0 0% 4%;
+
+    --destructive: 358 65% 55%;
+    --destructive-foreground: 0 0% 96%;
+
+    --border: 0 0% 14%;
+    --input: 0 0% 14%;
+    --ring: 200 72% 60%;
+
+    --radius: 0.6rem;
+
+    --text-primary: 0 0% 96%;
+    --text-secondary: 0 0% 72%;
+    --text-tertiary: 0 0% 58%;
+    --surface-elevated: 0 0% 8%;
+    --surface-hover: 0 0% 12%;
+    --accent-glow: 200 72% 60% / 0.18;
+    --red-synth: 351 74% 56%;
+    --blue-synth: 200 82% 61%;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Space Grotesk', 'Inter', system-ui, sans-serif;
+    font-weight: 400;
+    line-height: 1.6;
+    letter-spacing: -0.01em;
+  }
+
+  /* Typography system */
+  h1, h2, h3, h4 {
+    font-family: 'Space Grotesk', 'Inter', system-ui, sans-serif;
+    font-weight: 700;
+    letter-spacing: -0.025em;
+    line-height: 1.15;
+  }
+
+  ::selection {
+    background: hsl(var(--accent) / 0.28);
+    color: hsl(var(--foreground));
+  }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: hsl(var(--muted));
+    border-radius: 2px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: hsl(var(--muted-foreground));
+  }
+}
+
+@layer components {
+  /* Section container */
+  .section-container {
+    @apply max-w-7xl mx-auto px-6 md:px-12;
+  }
+
+  /* Interactive card base */
+  .card-interactive {
+    @apply relative overflow-hidden rounded-2xl border border-border bg-card/80 p-6 transition-all duration-500 ease-out;
+  }
+
+  .card-interactive:hover {
+    @apply border-primary/40 shadow-[0_0_60px_-25px_hsl(var(--accent))];
+    background: radial-gradient(circle at 20% 20%, hsl(var(--accent)/0.05), transparent 35%),
+                radial-gradient(circle at 80% 0%, hsl(var(--primary)/0.12), transparent 32%),
+                hsl(var(--card));
+  }
+
+  /* Skill tag styling */
+  .skill-tag {
+    @apply text-xs px-3 py-1.5 rounded-full bg-secondary text-secondary-foreground 
+           border border-border/60 transition-all duration-300;
+  }
+
+  .skill-tag:hover {
+    @apply bg-foreground text-background border-transparent;
+  }
+
+  /* Link with underline animation */
+  .link-subtle {
+    @apply relative inline-block text-foreground;
+  }
+
+  .link-subtle::after {
+    content: '';
+    @apply absolute bottom-0 left-0 w-full h-px bg-primary origin-left 
+           scale-x-0 transition-transform duration-500 ease-out;
+  }
+
+  .link-subtle:hover::after {
+    @apply scale-x-100;
+  }
+
+  .skill-card-neutral {
+    @apply bg-gradient-to-br from-[#0d0d11] via-[#0b0b0d] to-[#0f1015] border border-white/5;
+    box-shadow: 0 15px 60px -45px rgba(0, 0, 0, 0.8);
+  }
+
+  .skill-card-red {
+    @apply bg-gradient-to-br from-[#1c0c10] via-[#12070c] to-[#1f0a12] border border-[#ff6b81]/30;
+    box-shadow: 0 25px 80px -50px rgba(243, 75, 104, 0.55);
+  }
+
+  .skill-card-blue {
+    @apply bg-gradient-to-br from-[#0b1220] via-[#080e17] to-[#0e1626] border border-[#5cb6ff]/30;
+    box-shadow: 0 25px 80px -50px rgba(92, 182, 255, 0.55);
+  }
+}
+
+@layer utilities {
+  /* Custom text colors using design tokens */
+  .text-primary-content {
+    color: hsl(var(--text-primary));
+  }
+
+  .text-secondary-content {
+    color: hsl(var(--text-secondary));
+  }
+
+  .text-tertiary-content {
+    color: hsl(var(--text-tertiary));
+  }
+
+  .bg-surface-elevated {
+    background-color: hsl(var(--surface-elevated));
+  }
+
+  .bg-surface-hover {
+    background-color: hsl(var(--surface-hover));
+  }
+
+  /* Radial gradient background */
+  .bg-gradient-radial {
+    background: radial-gradient(circle at center, var(--tw-gradient-stops));
+  }
+
+  /* Noise texture overlay */
+  .noise-overlay::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.0' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+    opacity: 0.035;
+    pointer-events: none;
+  }
+}
+
+@layer components {
+  /* Prose styling for narrative content */
+  .prose-narrative {
+    @apply text-secondary-foreground leading-relaxed;
+    max-width: 65ch;
+  }
+
+  .prose-narrative p {
+    @apply mb-6;
+  }
+
+  .prose-narrative strong {
+    @apply text-foreground font-medium;
+  }
+
+  .prose-narrative em {
+    font-family: 'Space Grotesk', 'Inter', system-ui, sans-serif;
+    font-style: italic;
+  }
+
+  /* Section styling */
+  .section-divider {
+    @apply w-12 h-px bg-border mx-auto my-24;
+  }
+}
+
+@layer utilities {
+  /* Custom text colors using design tokens */
+  .text-primary-content {
+    color: hsl(var(--text-primary));
+  }
+
+  .text-secondary-content {
+    color: hsl(var(--text-secondary));
+  }
+
+  .text-tertiary-content {
+    color: hsl(var(--text-tertiary));
+  }
+
+  .bg-surface-elevated {
+    background-color: hsl(var(--surface-elevated));
+  }
+
+  .bg-surface-hover {
+    background-color: hsl(var(--surface-hover));
+  }
+
+  /* Gradient text for accent */
+  .text-gradient-accent {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-primary to-accent;
+  }
+}
